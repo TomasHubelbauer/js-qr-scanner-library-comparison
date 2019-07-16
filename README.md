@@ -60,3 +60,6 @@ camera or if you want it to be a configurable QR target (display code with user 
 and configured complexity) and will test it on a different device. In the latter case the web
 app will help you out by showing a URL QR code to itself so that you can scan that and have
 the app open on the test device ready in the scan mode.
+
+I will also attach approximate numbers for the devices I manage to test this on so it becomes
+apparent if there are libraries which for example excel on desktop but do not on mobile etc.
