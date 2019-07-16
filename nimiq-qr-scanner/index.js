@@ -1,11 +1,15 @@
-import QrScanner from 'path/to/qr-scanner.min.js';
+import QrScanner from './qr-scanner.min.js';
+
+export const name = 'Nimiq QR Scanner';
 
 export function install() {
-  // Nothing to do? We use ESM
+  // https://github.com/nimiq/qr-scanner#setup
+  QrScanner.WORKER_PATH = 'nimiq-qr-scanner/qr-scanner-worker.min.js';
 }
 
-export async function scan() {
+export async function scan(image) {
   // TODO: https://github.com/nimiq/qr-scanner#single-image-scanning
   // TODO: Figure out the best input type to use for single and continuous scanning
   // TODO: Do worked and workless
+  return QrScanner.scanImage(image);
 }

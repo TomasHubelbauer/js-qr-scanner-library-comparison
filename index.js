@@ -1,34 +1,50 @@
 import * as nimiqqrscanner from './nimiq-qr-scanner/index.js';
-import * as cozmojsqr from './cozmojsqr/index.js';
-import * as lazarsoftjsqrcode from './lazarsoftjsqrcode/index.js';
+import * as cozmojsqr from './cozmo-jsqr/index.js';
+import * as lazarsoftjsqrcode from './lazarsoft-jsqrcode/index.js';
 import * as schmichinstascan from './schmich-instascan/index.js';
 
 const libraries = [
   nimiqqrscanner,
   cozmojsqr,
-  lazarsoftjsqrcode,
+  //lazarsoftjsqrcode,
+  //schmichinstascan,
 ];
 
-const results = {};
-
-// Add script tags and register web workers for libraries which require it and
-// register the library in the results collector object
+// Install all libraries beforehand so they all have the same DOM / ~memory
 for (const library of libraries) {
+  // Add script tags and register web workers for libraries which require it
   library.install();
-  results[library.name] = [];
 }
 
 // TODO: Fill this up by capturing a sequence from the web camera
 const frames = [];
 
-for (const library of libraries) {
-  for (const frame of frames) {
-    const now = performance.now();
-    // TODO: Measure how long this took
-    // TODO: Find out if there was a match and if it was correct
-    library(frame);
+void async function () {
+  const img = document.createElement('img');
+  for (let index = 1; index <= 4; index++) {
+    img.src = 'test' + index + '.png';
+    // Use `onload` to keep replacing the handler with the latest `resolve`
+    await new Promise(resolve => img.onload = resolve);
+    frames.push(img);
+  }
 
-    // TODO: Insert the result - match is 'none', 'incorrect' or 'correct'
-    results[library.name].push({ match: 'none', time: performance.now() - now });
+  // TODO: UI
+  for await (const s of sample()) {
+    console.log(s);
+  }
+}()
+
+async function* sample() {
+  for (const library of libraries) {
+    for (const frame of frames) {
+      const now = performance.now();
+      try {
+        // not-found, not-match, match, error
+        const result = await library.scan(frame);
+        yield { library: library.name, result, time: performance.now() - now };
+      } catch (error) {
+        yield { library: library.name, result: 'error', error, time: performance.now() - now };
+      }
+    }
   }
 }
