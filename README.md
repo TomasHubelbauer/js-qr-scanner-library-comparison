@@ -7,15 +7,18 @@ The libraries that will be compared are:
 
 - https://github.com/nimiq/qr-scanner
 - https://github.com/cozmo/jsQR
-- https://github.com/davidshimjs/qrcodejs
-- https://cirocosta.github.io/qcode-decoder
 - https://github.com/LazarSoft/jsqrcode
 - https://github.com/schmich/instascan
+
+(These libraries have already been placed in the repository with stub exports.)
+
 - https://github.com/andrastoth/webcodecamjs
 - https://github.com/sinchang/qrcode-parser
 - https://github.com/cirocosta/qcode-decoder
 - https://github.com/jbialobr/JsQRScanner
 - https://github.com/yushulx/zxing-cpp-emscripten
+
+(These are yet to be added.)
 
 …and possibly others if I come across any.
 
@@ -63,3 +66,13 @@ the app open on the test device ready in the scan mode.
 
 I will also attach approximate numbers for the devices I manage to test this on so it becomes
 apparent if there are libraries which for example excel on desktop but do not on mobile etc.
+
+Some libs offer a web worker integration as well so I should count those as two
+entries I guess, one with and one without.
+
+Also some libraries might depend on the continuous stream to improve their detection
+rates so in order to account for that, aside from scanning individual frames,
+I should also construct a video stream somehow (need the stored one not the live
+one so probably capture live frames and they construct a video from them to a
+`video` element and send that to the library?) and show entries for both performance
+on a sequence of frames as well as on a stored video stream.
