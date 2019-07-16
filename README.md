@@ -92,3 +92,7 @@ This could be done in Puppeteer in addition to the live site functionalities.
 - `--use-fake-device-for-media-stream` feeds a test pattern to `getUserMedia` instead of live camera input
 - `--use-file-for-fake-video-capture=path/to/file.y4m` feeds a Y4M test file to `getUserMedia` instead of live camera input
   - https://wiki.multimedia.cx/index.php/YUV4MPEG2
+
+I might also consider adding `@` version suffixes to directory names to support
+testing multiple versions of the same library if there is a need for that in the
+future.
