@@ -76,3 +76,19 @@ I should also construct a video stream somehow (need the stored one not the live
 one so probably capture live frames and they construct a video from them to a
 `video` element and send that to the library?) and show entries for both performance
 on a sequence of frames as well as on a stored video stream.
+
+If the above is not possible or it is too hard or too unreliable (might not work
+for all libraries for example since some might want a stream object directly),
+then it might be wise to look into virtualizing the browser camera and playing
+pre-recorded sequences.
+
+https://webrtc.org/testing
+
+This could be done in Puppeteer in addition to the live site functionalities.
+
+- `--allow-file-access-from-files` allows `getUserMedia` to be called from `file://` URLs
+- `--disable-gesture-requirement-for-media-playback` removes the need to tap a `video` element to start it playing on Android
+- `--use-fake-ui-for-media-stream` avoids the need to grant camera/microphone permissions
+- `--use-fake-device-for-media-stream` feeds a test pattern to `getUserMedia` instead of live camera input
+- `--use-file-for-fake-video-capture=path/to/file.y4m` feeds a Y4M test file to `getUserMedia` instead of live camera input
+  - https://wiki.multimedia.cx/index.php/YUV4MPEG2
