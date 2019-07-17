@@ -13,14 +13,17 @@ The libraries that will be compared are:
 (These libraries have already been placed in the repository with stub exports.)
 
 - https://github.com/andrastoth/webcodecamjs
-- https://github.com/sinchang/qrcode-parser
-- https://github.com/cirocosta/qcode-decoder
 - https://github.com/jbialobr/JsQRScanner
 - https://github.com/yushulx/zxing-cpp-emscripten
 
 (These are yet to be added.)
 
 …and possibly others if I come across any.
+
+Not used:
+
+- https://github.com/sinchang/qrcode-parser (uses Cozmo's jsQR)
+- https://github.com/cirocosta/qcode-decoder (uses JazarSoft's jsqrcode)
 
 I might need to remove some if it turns out they use different ones under the hood.
 
@@ -96,3 +99,8 @@ This could be done in Puppeteer in addition to the live site functionalities.
 I might also consider adding `@` version suffixes to directory names to support
 testing multiple versions of the same library if there is a need for that in the
 future.
+
+## To-Do
+
+Hook up Instascan in some way which allows scanning `video` element as that is
+the only thing it will accept.
