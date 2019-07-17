@@ -25,7 +25,14 @@ void async function () {
     img.src = 'test' + index + '.png';
     // Use `onload` to keep replacing the handler with the latest `resolve`
     await new Promise(resolve => img.onload = resolve);
-    frames.push(img);
+
+    const canvas = document.createElement('canvas');
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    const context = canvas.getContext('2d');
+    context.drawImage(img, 0, 0);
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    frames.push({ img, imageData });
   }
 
   // TODO: UI
