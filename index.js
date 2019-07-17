@@ -6,33 +6,34 @@ import * as schmichinstascan from './schmich-instascan/index.js';
 const libraries = [
   nimiqqrscanner,
   cozmojsqr,
-  //lazarsoftjsqrcode,
+  lazarsoftjsqrcode,
   //schmichinstascan,
 ];
-
-// Install all libraries beforehand so they all have the same DOM / ~memory
-for (const library of libraries) {
-  // Add script tags and register web workers for libraries which require it
-  library.install();
-}
 
 // TODO: Fill this up by capturing a sequence from the web camera
 const frames = [];
 
 void async function () {
-  const img = document.createElement('img');
-  for (let index = 1; index <= 4; index++) {
-    img.src = 'test' + index + '.png';
-    // Use `onload` to keep replacing the handler with the latest `resolve`
-    await new Promise(resolve => img.onload = resolve);
+  // Install all libraries beforehand so they all have the same DOM / ~memory
+  for (const library of libraries) {
+    console.log('Installing', library.name, '…');
+    // Add script tags and register web workers for libraries which require it
+    await library.install();
+  }
 
+  for (let index = 1; index <= 4; index++) {
+    const img = document.createElement('img');
+    const promise = new Promise(resolve => img.addEventListener('load', resolve));
+    img.src = 'test' + index + '.png';
+    await promise;
     const canvas = document.createElement('canvas');
     canvas.width = img.naturalWidth;
     canvas.height = img.naturalHeight;
     const context = canvas.getContext('2d');
     context.drawImage(img, 0, 0);
     const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    frames.push({ img, imageData });
+    const dataUrl = canvas.toDataURL();
+    frames.push({ img, imageData, dataUrl });
   }
 
   // TODO: UI
@@ -44,6 +45,7 @@ void async function () {
 
 async function* sample(code) {
   for (const library of libraries) {
+    console.log('Sampling', library.name, '…');
     for (const frame of frames) {
       const now = performance.now();
       try {

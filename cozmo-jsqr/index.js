@@ -1,6 +1,6 @@
 export const name = 'Cozmo jsqR';
 
-export function install() {
+export async function install() {
   const script = document.createElement('script');
   script.src = 'cozmo-jsqr/jsQR.js';
   document.head.append(script);

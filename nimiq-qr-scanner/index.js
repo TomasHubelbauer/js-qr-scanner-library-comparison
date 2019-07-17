@@ -2,7 +2,7 @@ import QrScanner from './qr-scanner.min.js';
 
 export const name = 'Nimiq QR Scanner';
 
-export function install() {
+export async function install() {
   // https://github.com/nimiq/qr-scanner#setup
   QrScanner.WORKER_PATH = 'nimiq-qr-scanner/qr-scanner-worker.min.js';
 }
