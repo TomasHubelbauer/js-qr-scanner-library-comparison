@@ -5,7 +5,6 @@ JavaScript QR scanner libraries.
 
 The libraries that will be compared are:
 
-- https://github.com/nimiq/qr-scanner
 - https://github.com/cozmo/jsQR
 - https://github.com/LazarSoft/jsqrcode
 - https://github.com/schmich/instascan
@@ -22,6 +21,9 @@ The libraries that will be compared are:
 
 Not used:
 
+- https://github.com/nimiq/qr-scanner (uses Cozmo's jsQR)
+  - I didn't notice it before I implemented it so there is an implementation in
+  - Somehow this manages to catch less stuff than Cozmos despite wrapping it?!
 - https://github.com/sinchang/qrcode-parser (uses Cozmo's jsQR)
 - https://github.com/cirocosta/qcode-decoder (uses JazarSoft's jsqrcode)
 
