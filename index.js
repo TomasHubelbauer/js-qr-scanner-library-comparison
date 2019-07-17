@@ -36,19 +36,19 @@ void async function () {
   }
 
   // TODO: UI
-  for await (const s of sample()) {
+  const code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(_ => '0123456789' + _).join('');
+  for await (const s of sample(code)) {
     console.log(s);
   }
 }()
 
-async function* sample() {
+async function* sample(code) {
   for (const library of libraries) {
     for (const frame of frames) {
       const now = performance.now();
       try {
-        // not-found, not-match, match, error
         const result = await library.scan(frame);
-        yield { library: library.name, result, time: performance.now() - now };
+        yield { library: library.name, result: result === null ? 'not-found' : (result !== code ? 'not-match' : 'match'), time: performance.now() - now };
       } catch (error) {
         yield { library: library.name, result: 'error', error, time: performance.now() - now };
       }

@@ -7,5 +7,6 @@ export function install() {
 }
 
 export async function scan({ imageData }) {
-  return jsQR(imageData.data, imageData.width, imageData.height);
+  const result = jsQR(imageData.data, imageData.width, imageData.height);
+  return result === null ? null : result.data;
 }
