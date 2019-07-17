@@ -11,6 +11,13 @@ export async function install() {
 }
 
 export async function scan({ dataUrl }) {
-  // TODO: Override `console` to avoid this thrashing the output
-  return qrcode.decode(dataUrl);
+  // TODO: Find out why when overriding `console.log` the library never resolves
+  const promise = new Promise(resolve => qrcode.callback = resolve);
+  qrcode.decode(dataUrl);
+  const result = await promise;
+  if (result === 'error decoding QR Code') {
+    throw result;
+  }
+
+  return result;
 }
