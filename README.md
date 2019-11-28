@@ -104,5 +104,6 @@ future.
 
 ## To-Do
 
-Hook up Instascan in some way which allows scanning `video` element as that is
-the only thing it will accept.
+### Hook up Instascan in some way which allows scanning `video` element
+
+That is the only thing it will accept.
